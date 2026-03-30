@@ -12,7 +12,7 @@ type SubmitSeatHandler struct {
 }
 
 type SubmitSeatRequest struct {
-	CustomerID string `json:"customer_id" binding:"required"`
+	CustomerID string `json:"customerId" binding:"required"`
 }
 
 func NewSubmitSeatHandler(svc service.SeatService) *SubmitSeatHandler {
