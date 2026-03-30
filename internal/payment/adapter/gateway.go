@@ -8,14 +8,14 @@ import (
 )
 
 type GatewayPaymentReq struct {
-	Amount       float64 `json:"amount"`
-	Currency     string  `json:"currency"`
-	CardNumber   string  `json:"card_number"`
-	ExpiryMonth  int     `json:"expiry_month"`
-	ExpiryYear   int     `json:"expiry_year"`
-	CVV          string  `json:"cvv"`
-	MerchantID   string  `json:"merchant_id"`
-	OrderID      string  `json:"order_id"`
+	Amount      float64 `json:"amount"`
+	Currency    string  `json:"currency"`
+	CardNumber  string  `json:"card_number"`
+	ExpiryMonth int     `json:"expiry_month"`
+	ExpiryYear  int     `json:"expiry_year"`
+	CVV         string  `json:"cvv"`
+	MerchantID  string  `json:"merchant_id"`
+	OrderID     string  `json:"order_id"`
 }
 
 type GatewayPaymentRes struct {
@@ -41,7 +41,7 @@ func NewPaymentGatewayAdapter(baseURL string) PaymentGatewayAdapter {
 
 func (a *paymentGatewayAdapter) ProcessPayment(req GatewayPaymentReq) (*GatewayPaymentRes, error) {
 	url := fmt.Sprintf("%s/v1/payments", a.baseURL)
-	
+
 	jsonData, err := json.Marshal(req)
 	if err != nil {
 		return nil, err

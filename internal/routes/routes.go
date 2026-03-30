@@ -15,7 +15,6 @@ import (
 	sRepo "backend/internal/seats/repository"
 	sSvc "backend/internal/seats/service"
 
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

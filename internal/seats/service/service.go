@@ -69,4 +69,3 @@ func (s *seatService) UpdateStatus(id string, status string) error {
 func (s *seatService) ClearExpiredReservations(timeout time.Duration) error {
 	return s.repo.ClearExpiredReservations(timeout)
 }
-

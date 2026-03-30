@@ -5,7 +5,7 @@ import "time"
 const (
 	StatusAvailable = "available"
 	StatusReserved  = "reserved"
-	StatusSold       = "sold"
+	StatusSold      = "sold"
 )
 
 type Seat struct {
