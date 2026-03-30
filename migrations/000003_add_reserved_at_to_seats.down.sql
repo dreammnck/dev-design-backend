@@ -1,0 +1,1 @@
+ALTER TABLE seats DROP COLUMN IF EXISTS reserved_at;
