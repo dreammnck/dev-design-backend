@@ -27,6 +27,7 @@ jobs:
           --health-retries 5
 
     env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       DB_HOST: localhost
       DB_USER: postgres
       DB_PASSWORD: password
