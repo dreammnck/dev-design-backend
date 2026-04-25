@@ -73,9 +73,9 @@ func (Location) TableName() string { return "locations" }
 
 // EventCreateReq is used by organization to create a new event
 type EventCreateReq struct {
-	Title        string                `form:"title"        binding:"required"`
-	Description  string                `form:"description"`
-	ImageFile    *multipart.FileHeader `form:"imageUrl"     swaggerignore:"true"`
+	Title         string                `form:"title"        binding:"required"`
+	Description   string                `form:"description"`
+	ImageFile     *multipart.FileHeader `form:"imageUrl"     swaggerignore:"true"`
 	LocationName  string                `form:"locationName" binding:"required"`
 	Latitude      float64               `form:"latitude"`
 	Longitude     float64               `form:"longitude"`
@@ -84,12 +84,12 @@ type EventCreateReq struct {
 	Country       string                `form:"country"`
 	PostCode      string                `form:"postCode"`
 	LocationType  string                `form:"locationType"`
-	EventDate    string                `form:"eventDate"    binding:"required"` // YYYY-MM-DD
-	EventTime    string                `form:"eventTime"`                       // HH:MM
-	Price        int                   `form:"price"`
-	IsBanner     bool                  `form:"isBanner"`
-	IsRecommend  bool                  `form:"isRecommend"`
-	IsComingSoon bool                  `form:"isComingSoon"`
+	EventDate     string                `form:"eventDate"    binding:"required"` // YYYY-MM-DD
+	EventTime     string                `form:"eventTime"`                       // HH:MM
+	Price         int                   `form:"price"`
+	IsBanner      bool                  `form:"isBanner"`
+	IsRecommend   bool                  `form:"isRecommend"`
+	IsComingSoon  bool                  `form:"isComingSoon"`
 }
 
 // EventUpdateReq is used by organization to edit an owned event (all fields optional)
@@ -114,14 +114,14 @@ type ReviewReq struct {
 
 // AdminEditEventReq is used by admin to edit events (all fields optional, only sent fields are updated)
 type AdminEditEventReq struct {
-	Title        *string `json:"title"`
-	Description  *string `json:"description"`
-	LocationID   *string `json:"locationId"`
-	EventDate    *string `json:"eventDate"`
-	EventTime    *string `json:"eventTime"`
-	IsBanner     *bool   `json:"isBanner"`
-	IsRecommend  *bool          `json:"isRecommend"`
-	IsComingSoon *bool          `json:"isComingSoon"`
+	Title         *string        `json:"title"`
+	Description   *string        `json:"description"`
+	LocationID    *string        `json:"locationId"`
+	EventDate     *string        `json:"eventDate"`
+	EventTime     *string        `json:"eventTime"`
+	IsBanner      *bool          `json:"isBanner"`
+	IsRecommend   *bool          `json:"isRecommend"`
+	IsComingSoon  *bool          `json:"isComingSoon"`
 	PublishStatus *PublishStatus `json:"publishStatus"`
 }
 
@@ -162,7 +162,7 @@ type SeatInput struct {
 	SeatNumber string `json:"seatNumber"` // Optional if Capacity is provided
 	Price      int    `json:"price"`
 	SeatType   string `json:"seatType"`
-	Capacity   int    `json:"capacity"`   // If > 0, system will auto-generate N seats
+	Capacity   int    `json:"capacity"` // If > 0, system will auto-generate N seats
 }
 
 type UserFavorite struct {

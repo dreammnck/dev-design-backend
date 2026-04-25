@@ -59,7 +59,7 @@ func UploadFile(file *multipart.FileHeader) (string, error) {
 		return "", fmt.Errorf("writer.Close: %w", err)
 	}
 
-	// Make the object public if the bucket doesn't have uniform bucket-level access 
+	// Make the object public if the bucket doesn't have uniform bucket-level access
 	// Or just return the URL format
 	// Return the public URL
 	publicURL := fmt.Sprintf("https://storage.googleapis.com/%s/%s", bucketName, filename)

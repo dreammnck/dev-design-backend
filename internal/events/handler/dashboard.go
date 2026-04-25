@@ -27,11 +27,11 @@ func (h *EventHandler) GetOrganizerOverallSummary(c *gin.Context) {
 
 // GET /api/organizer/events/:id/sales?period=30d
 func (h *EventHandler) GetOrganizerEventSales(c *gin.Context) {
-	// claims check ignored for simplicity in ID-based lookup if needed, 
+	// claims check ignored for simplicity in ID-based lookup if needed,
 	// but normally we should check if org owns this event.
 	eventID := c.Param("id")
 	periodStr := c.DefaultQuery("period", "30d")
-	
+
 	// Simple parsing for "30d" -> 30
 	days := 30
 	if len(periodStr) > 1 {

@@ -2,10 +2,10 @@ package handler
 
 import (
 	"backend/internal/auth"
-	"fmt"
 	"backend/internal/events"
 	"backend/internal/events/repository"
 	"backend/pkg/middleware"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -45,7 +45,7 @@ func (h *EventHandler) AdminListEvents(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
 		return
 	}
-	
+
 	c.JSON(http.StatusOK, gin.H{"status": "success", "data": data})
 }
 
@@ -81,7 +81,7 @@ func (h *EventHandler) ReviewEvent(c *gin.Context) {
 func (h *EventHandler) AdminEditEvent(c *gin.Context) {
 	id := c.Param("id")
 	claims, _ := middleware.GetClaims(c)
-	
+
 	// If not admin, check ownership
 	if claims.Role != auth.RoleAdmin {
 		existingEvt, err := h.svc.GetByID(id, "")
@@ -89,7 +89,7 @@ func (h *EventHandler) AdminEditEvent(c *gin.Context) {
 			c.JSON(http.StatusNotFound, gin.H{"status": "error", "message": "Event not found"})
 			return
 		}
-		
+
 		// Ensure organization_id matches (handle cases where organization_id might be nil or different from user_id if they are separate)
 		// Debug: เช็ค ID
 		orgID := ""

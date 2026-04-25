@@ -70,7 +70,7 @@ func (h *PayoutHandler) GetAllPayouts(c *gin.Context) {
 // POST /admin/payouts/:id/process
 func (h *PayoutHandler) ProcessPayout(c *gin.Context) {
 	id := c.Param("id")
-	
+
 	var req struct {
 		Status string `json:"status" binding:"required"` // approve, reject
 		Note   string `json:"note"`

@@ -14,16 +14,16 @@ func NewEventHandler(svc service.EventService) *EventHandler {
 }
 
 type FlattenedEvent struct {
-	ID       string `json:"id"`
-	Title    string `json:"title"`
-	Date     string `json:"date"`
+	ID           string `json:"id"`
+	Title        string `json:"title"`
+	Date         string `json:"date"`
 	Location     string `json:"location"`
 	LocationType string `json:"locationType"`
 	Time         string `json:"time"`
-	Price    int    `json:"price"`
-	Image    string `json:"image"`
-	IsFav    bool   `json:"isFav"`
-	Detail   string `json:"detail,omitempty"`
+	Price        int    `json:"price"`
+	Image        string `json:"image"`
+	IsFav        bool   `json:"isFav"`
+	Detail       string `json:"detail,omitempty"`
 }
 
 func flattenEvents(evts []events.Event) []FlattenedEvent {
@@ -40,15 +40,15 @@ func flattenEvent(e events.Event) FlattenedEvent {
 		timeStr = *e.Time
 	}
 	return FlattenedEvent{
-		ID:       e.ID,
-		Title:    e.Title,
-		Date:     e.Date,
+		ID:           e.ID,
+		Title:        e.Title,
+		Date:         e.Date,
 		Location:     e.Location.Name,
 		LocationType: e.Location.Type,
 		Time:         timeStr,
-		Price:    e.Price,
-		Image:    e.Image,
-		IsFav:    e.IsFav,
-		Detail:   e.Detail,
+		Price:        e.Price,
+		Image:        e.Image,
+		IsFav:        e.IsFav,
+		Detail:       e.Detail,
 	}
 }

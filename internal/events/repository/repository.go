@@ -624,7 +624,7 @@ func (r *eventRepository) OrganizerGetOverallSummary(orgID string) (map[string]i
 
 func (r *eventRepository) OrganizerGetEventSales(eventID string, days int) ([]map[string]interface{}, error) {
 	stats := []map[string]interface{}{} // Initialize as empty slice to avoid 'null' in JSON
-	
+
 	// Query daily revenue and orders for the last N days
 	err := r.db.Raw(`
 		SELECT 

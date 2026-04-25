@@ -1,10 +1,9 @@
 package payment
 
-
 type PaymentReq struct {
 	SeatIDs       []string               `json:"seatIds"`
 	BookingID     string                 `json:"bookingId,omitempty"`
-	UserID        string                 `json:"-"` // Injected from JWT claims, not from request body
+	UserID        string                 `json:"-"`             // Injected from JWT claims, not from request body
 	PaymentMethod string                 `json:"paymentMethod"` // e.g., "credit_card", "qr_code"
 	Amount        float64                `json:"amount"`
 	Details       map[string]interface{} `json:"details"` // Method-specific info

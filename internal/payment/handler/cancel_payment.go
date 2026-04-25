@@ -43,4 +43,3 @@ func (h *CancelPaymentHandler) Handle(c *gin.Context) {
 
 	c.JSON(http.StatusOK, res)
 }
-

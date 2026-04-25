@@ -36,7 +36,7 @@ func (h *EventHandler) CreateEvent(c *gin.Context) {
 	// Map old fields if needed locally or directly pass them
 	req.ImageFile = nil
 	// (We will temporarily patch EventCreateReq DTO inside to also set Image if needed later)
-	
+
 	evt, err := h.svc.CreateEvent(claims.UserID, req, imageUrl)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})

@@ -40,4 +40,3 @@ func (h *SubmitSeatHandler) Handle(c *gin.Context) {
 		"message": "seat reserved successfully",
 	})
 }
-

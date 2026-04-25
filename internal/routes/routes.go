@@ -8,7 +8,6 @@ import (
 	eHandler "backend/internal/events/handler"
 	eRepo "backend/internal/events/repository"
 	eSvc "backend/internal/events/service"
-	"fmt"
 	pAdapter "backend/internal/payment/adapter"
 	pHandler "backend/internal/payment/handler"
 	pRepo "backend/internal/payment/repository"
@@ -16,6 +15,7 @@ import (
 	"backend/pkg/middleware"
 	"backend/pkg/notification"
 	"backend/pkg/ping"
+	"fmt"
 	"os"
 
 	sHandler "backend/internal/seats/handler"
@@ -176,7 +176,7 @@ func SetupRoutes(r *gin.Engine, db *gorm.DB) {
 		adminGroup.POST("/payouts/:id", middleware.RolesAllowed(auth.RoleAdmin), payoutH.ProcessPayout)
 
 		// Shared: Admin or Org
-		adminGroup.PATCH("/editEvent/:id", 
+		adminGroup.PATCH("/editEvent/:id",
 			middleware.RolesAllowed(auth.RoleAdmin, auth.RoleOrganization),
 			eventH.AdminEditEvent,
 		)
