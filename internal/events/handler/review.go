@@ -5,7 +5,6 @@ import (
 	"backend/internal/events"
 	"backend/internal/events/repository"
 	"backend/pkg/middleware"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -90,23 +89,12 @@ func (h *EventHandler) AdminEditEvent(c *gin.Context) {
 			return
 		}
 
-		// Ensure organization_id matches (handle cases where organization_id might be nil or different from user_id if they are separate)
-		// Debug: เช็ค ID
-		orgID := ""
-		if existingEvt.OrganizationID != nil {
-			orgID = *existingEvt.OrganizationID
-		}
-		fmt.Printf("DEBUG: Ownership Check - UserID from Token: [%s], OrgID in DB: [%s]\n", claims.UserID, orgID)
-
-		if existingEvt.OrganizationID == nil || *existingEvt.OrganizationID != claims.UserID {
-			msg := "You do not have permission to edit this event"
-			if existingEvt.OrganizationID != nil {
-				msg = fmt.Sprintf("Permission Denied: Your ID [%s] != Owner ID [%s]", claims.UserID, *existingEvt.OrganizationID)
-			} else {
-				msg = fmt.Sprintf("Permission Denied: Your ID [%s], but Event has NO Owner (null)", claims.UserID)
+		// Ensure organization_id matches for organizers
+		if claims.Role == auth.RoleOrganization {
+			if existingEvt.OrganizationID == nil || *existingEvt.OrganizationID != claims.UserID {
+				c.JSON(http.StatusForbidden, gin.H{"status": "error", "message": "You do not have permission to edit this event"})
+				return
 			}
-			c.JSON(http.StatusForbidden, gin.H{"status": "error", "message": msg})
-			return
 		}
 	}
 

@@ -87,8 +87,8 @@ func (s *notificationService) sendEmailMulti(to, subject, body string, attachmen
 			filename = filenames[i]
 		}
 		msg.WriteString(fmt.Sprintf("--%s\r\n", boundary))
-		msg.WriteString(fmt.Sprintf("Content-Type: image/png\r\n"))
-		msg.WriteString(fmt.Sprintf("Content-Transfer-Encoding: base64\r\n"))
+		msg.WriteString("Content-Type: image/png\r\n")
+		msg.WriteString("Content-Transfer-Encoding: base64\r\n")
 		msg.WriteString(fmt.Sprintf("Content-Disposition: attachment; filename=\"%s\"\r\n\r\n", filename))
 		msg.WriteString(base64.StdEncoding.EncodeToString(attachment))
 		msg.WriteString("\r\n")
