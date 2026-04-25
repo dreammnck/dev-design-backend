@@ -2,6 +2,7 @@ package handler
 
 import (
 	"backend/internal/seats/service"
+	"backend/pkg/middleware"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,10 +10,6 @@ import (
 
 type SubmitSeatHandler struct {
 	svc service.SeatService
-}
-
-type SubmitSeatRequest struct {
-	CustomerID string `json:"customerId" binding:"required"`
 }
 
 func NewSubmitSeatHandler(svc service.SeatService) *SubmitSeatHandler {
@@ -26,15 +23,14 @@ func (h *SubmitSeatHandler) Handle(c *gin.Context) {
 		return
 	}
 
-	var req SubmitSeatRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "customer_id is required"})
+	claims, ok := middleware.GetClaims(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "error", "message": "Unauthorized"})
 		return
 	}
 
-	// Reserve seat via service directly
-	err := h.svc.ReserveSeat(id, req.CustomerID)
-	if err != nil {
+	// Reserve seat via service directly using the authenticated user's ID
+	if err := h.svc.ReserveSeat(id, claims.UserID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": "failed to reserve seat: " + err.Error()})
 		return
 	}
@@ -44,3 +40,4 @@ func (h *SubmitSeatHandler) Handle(c *gin.Context) {
 		"message": "seat reserved successfully",
 	})
 }
+

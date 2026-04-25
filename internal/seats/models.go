@@ -13,12 +13,15 @@ type Seat struct {
 	EventID    string     `json:"eventId" gorm:"type:uuid;column:event_id"`
 	SeatNumber string     `json:"seatNumber" gorm:"column:seat_number"`
 	Status     string     `json:"status" gorm:"column:status"`
-	CustomerID *string    `json:"customerId" gorm:"type:uuid;column:customer_id"`
+	Price      int        `json:"price" gorm:"column:price"`
+	SeatType   string     `json:"seatType" gorm:"column:seat_type"`
+
+	CustomerID *string    `json:"userId" gorm:"type:uuid;column:user_id"`
 	ReservedAt *time.Time `json:"reservedAt" gorm:"column:reserved_at"`
 }
 
 type ReservationMessage struct {
 	SeatID      string    `json:"seatId"`
-	CustomerID  string    `json:"customerId"`
+	CustomerID  string    `json:"userId"`
 	SubmittedAt time.Time `json:"submittedAt"`
 }

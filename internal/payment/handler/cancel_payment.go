@@ -3,6 +3,7 @@ package handler
 import (
 	"backend/internal/payment"
 	"backend/internal/payment/service"
+	"backend/pkg/middleware"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,12 @@ func NewCancelPaymentHandler(svc service.PaymentService) *CancelPaymentHandler {
 }
 
 func (h *CancelPaymentHandler) Handle(c *gin.Context) {
+	claims, ok := middleware.GetClaims(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "error", "message": "Unauthorized"})
+		return
+	}
+
 	var req payment.PaymentReq
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -26,6 +33,8 @@ func (h *CancelPaymentHandler) Handle(c *gin.Context) {
 		return
 	}
 
+	req.UserID = claims.UserID
+
 	res, err := h.svc.Cancel(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, res)
@@ -34,3 +43,4 @@ func (h *CancelPaymentHandler) Handle(c *gin.Context) {
 
 	c.JSON(http.StatusOK, res)
 }
+

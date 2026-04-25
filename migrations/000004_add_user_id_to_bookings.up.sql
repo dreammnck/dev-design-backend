@@ -1,0 +1,2 @@
+ALTER TABLE bookings ADD COLUMN user_id UUID REFERENCES users(id) ON DELETE SET NULL;
+

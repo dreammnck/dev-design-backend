@@ -24,7 +24,7 @@ func NewSeatRepository(db *gorm.DB) SeatRepository {
 
 func (r *seatRepository) GetByEventID(id string) ([]seats.Seat, error) {
 	var s []seats.Seat
-	err := r.db.Where("event_id = ?", id).Find(&s).Error
+	err := r.db.Where("event_id = ?", id).Order("SUBSTRING(seat_number, '^[A-Za-z]+') ASC, CAST(SUBSTRING(seat_number, '[0-9]+') AS INTEGER) ASC").Find(&s).Error
 	return s, err
 }
 
@@ -38,7 +38,7 @@ func (r *seatRepository) UpdateStatus(id string, status string, reservedAt *time
 	return r.db.Model(&seats.Seat{}).Where("id = ?", id).Updates(map[string]interface{}{
 		"status":      status,
 		"reserved_at": reservedAt,
-		"customer_id": customerID,
+		"user_id":     customerID,
 	}).Error
 }
 
@@ -50,6 +50,6 @@ func (r *seatRepository) ClearExpiredReservations(timeout time.Duration) error {
 		Updates(map[string]interface{}{
 			"status":      seats.StatusAvailable,
 			"reserved_at": nil,
-			"customer_id": nil,
+			"user_id":     nil,
 		}).Error
 }

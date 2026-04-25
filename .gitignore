@@ -35,3 +35,10 @@ Thumbs.db
 
 # Ignore Google Cloud related configs (if any)
 .gcloudignore
+*.json
+
+# Custom Scripts & Logs
+*.sh
+/scratch/
+*.log
+/server.log

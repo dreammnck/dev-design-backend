@@ -57,9 +57,13 @@ CLOUD_SQL_INSTANCE ?= $(GCP_PROJECT_ID):$(GCP_REGION):dev-design
 
 # Database settings for production
 P_DB_USER ?= postgres
-P_DB_PASS ?= StrongSecret123!
-P_DB_NAME ?= tickets_db
+P_DB_PASS ?= KJSZ[OC5sPmrFtmL
+P_DB_NAME ?= booking_db
 PAYMENT_GATEWAY_URL ?= https://mock-payment-449892262369.asia-southeast1.run.app
+CLEANUP_INTERVAL ?= 5m
+RESERVATION_TIMEOUT ?= 5m
+SMTP_EMAIL ?= 6870405021@student.chula.ac.th
+SMTP_PASSWORD ?= yknyglqdldpglhnr
 
 .PHONY: deploy
 deploy:
@@ -71,7 +75,7 @@ deploy:
 		--allow-unauthenticated \
 		--port=8080 \
 		--add-cloudsql-instances="$(CLOUD_SQL_INSTANCE)" \
-		--set-env-vars="PAYMENT_GATEWAY_URL=$(PAYMENT_GATEWAY_URL),DB_HOST=/cloudsql/$(CLOUD_SQL_INSTANCE),DB_USER=$(P_DB_USER),DB_PASSWORD=$(P_DB_PASS),DB_NAME=$(P_DB_NAME),DB_PORT=5432"
+		--set-env-vars="PAYMENT_GATEWAY_URL=$(PAYMENT_GATEWAY_URL),CLEANUP_INTERVAL=$(CLEANUP_INTERVAL),RESERVATION_TIMEOUT=$(RESERVATION_TIMEOUT),DB_HOST=/cloudsql/$(CLOUD_SQL_INSTANCE),DB_USER=$(P_DB_USER),DB_PASSWORD=$(P_DB_PASS),DB_NAME=$(P_DB_NAME),DB_PORT=5432,SMTP_EMAIL=$(SMTP_EMAIL),SMTP_PASSWORD=$(SMTP_PASSWORD)"
 
 # Help
 .PHONY: help

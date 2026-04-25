@@ -4,6 +4,8 @@ import (
 	"backend/internal/routes"
 	sRepo "backend/internal/seats/repository"
 	"backend/pkg/database"
+	"backend/pkg/middleware"
+	"backend/pkg/storage"
 	"log"
 	"os"
 	"time"
@@ -20,9 +22,13 @@ func main() {
 
 	// Initialize Gin engine
 	r := gin.Default()
+	r.Use(middleware.CORS())
 
 	// Setup centralized routes
 	routes.SetupRoutes(r, db)
+
+	// Initialize Google Cloud Storage (requires env vars loaded by InitDB)
+	storage.InitGCS()
 
 	// Configuration for cleanup
 	cleanupIntervalStr := os.Getenv("CLEANUP_INTERVAL")
